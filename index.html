@@ -307,7 +307,31 @@
   			return new Promise(resolve => setTimeout(resolve, ms));
 		}
 
-		
+		async function CheckAdBlock() 
+		{
+			await sleep(20000);
+			var adBlockEnabled = false;
+			var testAd = document.createElement('div');
+			testAd.innerHTML = '&nbsp;';
+			testAd.className = 'adsbox';
+			document.body.appendChild(testAd);
+			window.setTimeout(function() {
+			if (testAd.offsetHeight === 0) {
+				adBlockEnabled = true;
+			}
+			testAd.remove();
+			if(adBlockEnabled)
+			{
+				gameInstance.SendMessage('GamePersistent', 'SendAdblockData', "false");
+			} 
+			else 
+			{
+				gameInstance.SendMessage('GamePersistent', 'SendAdblockData', "false");
+			}		
+			}, 100);
+		}
+
+		CheckAdBlock();
 	
 	</script>
 </body>
